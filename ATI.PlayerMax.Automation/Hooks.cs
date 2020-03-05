@@ -29,8 +29,7 @@ namespace ATI.PlayerMax.Automation
         private static ExtentKlovReporter klov;
         private static ExtentTest featureName;
         private static ExtentTest scenario;
-
-
+   
         public Hooks(IObjectContainer container)
         {
             this.container = container;
@@ -39,7 +38,7 @@ namespace ATI.PlayerMax.Automation
         [BeforeScenario]
         public void SetThingsUp()
         {
-            _test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            //_test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
 
             //Here, initilize the driver from the factory and create the reporter..etc
             WebDriverFactory webDriverFactory = new WebDriverFactory();
@@ -47,6 +46,11 @@ namespace ATI.PlayerMax.Automation
          
             // Make 'driver' available for DI
             container.RegisterInstanceAs<IWebDriver>(driver);
+
+            //Create scenario name dynamically for extend reports
+            Console.WriteLine("BeforeScenario");
+            scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
+
         }
 
         [AfterScenario]
@@ -59,7 +63,7 @@ namespace ATI.PlayerMax.Automation
 
         }
 
-        [AfterScenario]
+       // [AfterScenario]
         public void AfterTest()
         {
             var status = TestContext.CurrentContext.Result.Outcome.Status;
@@ -95,6 +99,8 @@ namespace ATI.PlayerMax.Automation
 
             //ExtentV3HtmlReporter htmlReporter = new ExtentV3HtmlReporter(@"C:\Users\rali\Desktop\AutomationReport\ExtentReport.html");
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(@"C:\Users\rali\Desktop\AutomationReport\ExtentReport.html");
+
+          
 
             //attach only HtmlReporte
             extent = new AventStack.ExtentReports.ExtentReports();
@@ -136,7 +142,43 @@ namespace ATI.PlayerMax.Automation
         public static void BeforeFeature()
         {
             //Create dynamic feature name
-            //featureName = extent.CreateTest<Feature>(FeatureContext.Current.FeatureInfo.Title);
+            featureName = extent.CreateTest<Feature>(FeatureContext.Current.FeatureInfo.Title);
+            Console.WriteLine("BeforeFeature");
+        }
+
+        [AfterStep]
+        public void InsertReportingSteps()
+        {
+            var stepType = ScenarioStepContext.Current.StepInfo.StepDefinitionType.ToString();
+            if (ScenarioContext.Current.TestError == null)
+            {
+                if (stepType == "Given")
+                    scenario.CreateNode<Given>(ScenarioStepContext.Current.StepInfo.Text);
+                else if(stepType == "When")
+                                scenario.CreateNode<When>(ScenarioStepContext.Current.StepInfo.Text);
+                else if(stepType == "Then")
+                                scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text);
+                else if(stepType == "And")
+                                scenario.CreateNode<And>(ScenarioStepContext.Current.StepInfo.Text);
+            }
+            else if(ScenarioContext.Current.TestError != null)
+            {
+                if (stepType == "Given")
+                {
+                    scenario.CreateNode<Given>(ScenarioStepContext.Current.StepInfo.Text).Fail(ScenarioContext.Current.TestError.Message);
+                }
+                else if(stepType == "When")
+                {
+                    scenario.CreateNode<When>(ScenarioStepContext.Current.StepInfo.Text).Fail(ScenarioContext.Current.TestError.Message);
+                }
+                else if(stepType == "Then") {
+                    scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Fail(ScenarioContext.Current.TestError.Message);
+                }
+                else if(stepType == "And")
+                {
+                    scenario.CreateNode<And>(ScenarioStepContext.Current.StepInfo.Text).Fail(ScenarioContext.Current.TestError.Message);
+                }
+            }
         }
     }
 }
