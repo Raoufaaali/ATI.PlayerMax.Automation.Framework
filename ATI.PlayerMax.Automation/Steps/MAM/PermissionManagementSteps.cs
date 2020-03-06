@@ -1,11 +1,6 @@
-﻿using ATI.PlayerMax.Automation.DriverFactory;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
 using TechTalk.SpecFlow;
 
 namespace ATI.PlayerMax.Automation.Steps.MAM
@@ -16,11 +11,9 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
     public class PermissionManagementSteps
     {
         private IWebDriver _driver;
+
         string PlayerMaxMAMURL = "https://playermax-sit.aristocrat.systems";
-        //  private IWebDriver _driver  = new ChromeDriver(".");
-        // WebDriverFactory webDriverFactory = new WebDriverFactory();        
-        //WebDriverWait wait;        
-        //wait = new WebDriverWait(_driver, System.TimeSpan.FromSeconds(5));   
+        
 
         public PermissionManagementSteps(IWebDriver driver)
         {
@@ -63,7 +56,6 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
         [Then(@"I should be logged in to MAM")]
         public void ThenIShouldBeLoggedInToMAM()
         {
-
             String URL = _driver.Url;
             Assert.AreEqual(URL, "https://playermax-sit.aristocrat.systems/Admin/Viewer.aspx");
         }

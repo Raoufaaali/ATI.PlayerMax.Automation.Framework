@@ -3,13 +3,9 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
-using System.Reflection;
-using System.Text;
 
 namespace ATI.PlayerMax.Automation.DriverFactory
 {

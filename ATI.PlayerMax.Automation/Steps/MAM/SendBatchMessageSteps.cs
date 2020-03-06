@@ -1,9 +1,7 @@
 ﻿using ATI.PlayerMax.Automation.DriverFactory;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using System;
 using System.Threading;
 using TechTalk.SpecFlow;
 
@@ -15,19 +13,8 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
     {
         private IWebDriver _driver;
         string PlayerMaxMAMURL = "https://playermax-sit.aristocrat.systems";
-        WebDriverWait wait;
-        //_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-        
-
-       // [Before]
-        public void Setup()
-        {
-            WebDriverFactory webDriverFactory = new WebDriverFactory();
-            _driver = webDriverFactory.Get();//new ChromeDriver(".");
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-         
-        }
-
+       
+                   
         public SendBatchMessageSteps(IWebDriver driver)
         {
             _driver = driver;
