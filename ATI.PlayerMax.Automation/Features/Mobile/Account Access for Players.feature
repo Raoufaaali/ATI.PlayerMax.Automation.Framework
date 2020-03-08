@@ -7,24 +7,33 @@
 	forgot password
 	reset password after admin account reset 
 
-@smoke @mobile @ignore
+@smoke @mobile 
 Scenario: Player Login to Existing Account
 	Given I have a launched PlayerMax mobile app
 	When I navigate to PlayerMax sign in page and enter my valid credentials and press login
 	Then I should be logged in and be able to access the messages tab
 	
-@smoke @mobile @ignore
+@smoke @mobile 
 Scenario: Player Register a New Account
+	Given I have a launched PlayerMax mobile app
+	When I navigate to PlayerMax sign up page and validate my player club number, last name and DOB
+	And I enter valid email account and a password the meets the policy
+	Then I should receive and email with a verifiction link 
+	And I can login with my new credentials after veryfing my email 
 
-@smoke @mobile @ignore
+@smoke @mobile 
 Scenario: Player Retreive Username
+	Given I have a launched PlayerMax mobile app
+	When I navigate to PlayerMax sign in page and click on Forgot? link located in the username field
+	And I enter my email, player ID, Last name and DOB and press retreive
+	Then I should see my username on the screen
 
 
 @smoke @mobile @ignore
 Scenario: Player Change Password
 
 
-@smoke @mobile @ignore
+@smoke @mobile 
 Scenario: Player Forgot Password
 	Given I have launched PlayerMax mobile app
 	When I navigate to PlayerMax sign in page and click on Forgot? link located in the password field
@@ -33,5 +42,5 @@ Scenario: Player Forgot Password
 	Then A toast that says "Password reset successfully" should be displayed and I should be logged in automatically
 
 	
-@smoke @mobile 
+@smoke @mobile @ignore
 Scenario: Player Reset Password After Admin Account Reset  
