@@ -30,6 +30,10 @@
     <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.1.86" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.1.86" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Steps\Mobile\" />
+  </ItemGroup>
   
 <!-- START: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">

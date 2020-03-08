@@ -32,7 +32,7 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
         {
 
            // _driver.Manage().Window.Maximize();
-            System.Threading.Thread.Sleep(5000);
+      
 
             IWebElement usernameElement =
             _driver.FindElement(By.Id("txtUserame"));
@@ -41,7 +41,7 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
             IWebElement PasswordElement =
             _driver.FindElement(By.Id("txtPassword"));
             PasswordElement.SendKeys("Password1234567");
-            System.Threading.Thread.Sleep(2000);
+            
         }
         
         [When(@"I press Sign In")]
@@ -50,7 +50,7 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
 
             IWebElement SignInElement = _driver.FindElement(By.Id("btnSignIn"));
             SignInElement.Click();
-            System.Threading.Thread.Sleep(1000);
+            
         }
         
         [Then(@"I should be logged in to MAM")]
@@ -59,6 +59,35 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
             String URL = _driver.Url;
             Assert.AreEqual(URL, "https://playermax-sit.aristocrat.systems/Admin/Viewer.aspx");
         }
+
+        [Given]
+        public void Given_I_have_entered_wrong_username_and_password()
+        {
+            IWebElement usernameElement =
+           _driver.FindElement(By.Id("txtUserame"));
+            usernameElement.SendKeys("WrongUsername");
+
+            IWebElement PasswordElement =
+            _driver.FindElement(By.Id("txtPassword"));
+            PasswordElement.SendKeys("Wrong Password");
+        }
+
+        [Then]
+        public void Then_I_should_not_be_logged_into_MAM()
+        {
+            String URL = _driver.Url;
+            Assert.AreNotEqual(URL, "https://playermax-sit.aristocrat.systems/Admin/Viewer.aspx");
+        }
+
+        [Then]
+        public void Then_I_should_receive_an_error_message_saying_P0(string p0)
+        {
+            var errorMessage = _driver.FindElement(By.XPath("//p[@id='alertMessage']"));
+            Assert.IsTrue(_driver.PageSource.Contains("You don't have privileges to login"));
+        }
+
+
+
 
     }
 }

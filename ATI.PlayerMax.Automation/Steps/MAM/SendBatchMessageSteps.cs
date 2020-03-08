@@ -45,26 +45,21 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
 
             IWebElement configurationBtn = _driver.FindElement(By.Id("configurationBtn"));
             configurationBtn.Click();
-            Thread.Sleep(2000);
             IWebElement batchMessage = _driver.FindElement(By.Id("batchMessage"));
             batchMessage.Click();
-            Thread.Sleep(2000);
             IWebElement BtnConfiguration = _driver.FindElement(By.Id("MainContent_btnAddNewMessage"));
             BtnConfiguration.Click();
 
             //WebDriverWait wait = new WebDriverWait(_driver, System.TimeSpan.FromSeconds(10));
             //wait.Until(driver => driver.FindElement(By.Id("MainContent_btnAddNewMessage")));
-            Thread.Sleep(2000);
             IWebElement BtnAdd = _driver.FindElement(By.Id("MainContent_btnAddNewMessage"));
             BtnAdd.Click();
-            Thread.Sleep(5000);
 
             IWebElement AllPropertiesCheckBox = _driver.FindElement(By.XPath("//label[contains(text(),'All Properties')]"));
             AllPropertiesCheckBox.Click();
             
             IWebElement MessageContentTab = _driver.FindElement(By.XPath("//a[contains(text(),'Message Content')]"));
             MessageContentTab.Click();
-            Thread.Sleep(5000);
 
             IWebElement MessageSender = _driver.FindElement(By.Id("MainContent_txtMessageForm"));
             MessageSender.SendKeys("From Automated Test");
@@ -77,26 +72,23 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
 
             DropDown.SelectByText("Now");
 
-            Thread.Sleep(5000);
 
             IWebElement Save = _driver.FindElement(By.Id("MainContent_lnkbtnSave"));
             Save.Click();
-            Thread.Sleep(5000);
+  
 
             IWebElement btnConfirmSave = _driver.FindElement(By.Id("MainContent_btnConfirmedSave"));
             //btnConfirmSave.Click();
 
-            Thread.Sleep(5000);
         }
         
         [Then(@"My message should be saved to the DB")]
         public void ThenMyMessageShouldBeSavedToTheDB()
         {
             //TO DO add code to check the DB
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(1, 2);
         }
-
-        
+            
 
 
        

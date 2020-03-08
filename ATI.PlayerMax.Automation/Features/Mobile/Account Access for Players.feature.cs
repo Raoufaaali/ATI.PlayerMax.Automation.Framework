@@ -80,17 +80,14 @@ namespace ATI.PlayerMax.Automation.Features.Mobile
         [NUnit.Framework.DescriptionAttribute("Player Login to Existing Account")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("mobile")]
-        [NUnit.Framework.CategoryAttribute("ignore")]
         public virtual void PlayerLoginToExistingAccount()
         {
             string[] tagsOfScenario = new string[] {
                     "smoke",
-                    "mobile",
-                    "ignore"};
+                    "mobile"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player Login to Existing Account", null, new string[] {
                         "smoke",
-                        "mobile",
-                        "ignore"});
+                        "mobile"});
 #line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -129,17 +126,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Player Register a New Account")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("mobile")]
-        [NUnit.Framework.CategoryAttribute("ignore")]
         public virtual void PlayerRegisterANewAccount()
         {
             string[] tagsOfScenario = new string[] {
                     "smoke",
-                    "mobile",
-                    "ignore"};
+                    "mobile"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player Register a New Account", null, new string[] {
                         "smoke",
-                        "mobile",
-                        "ignore"});
+                        "mobile"});
 #line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -160,6 +154,22 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 18
+ testRunner.Given("I have a launched PlayerMax mobile app", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 19
+ testRunner.When("I navigate to PlayerMax sign up page and validate my player club number, last nam" +
+                        "e and DOB", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 20
+ testRunner.And("I enter valid email account and a password the meets the policy", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 21
+ testRunner.Then("I should receive and email with a verifiction link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 22
+ testRunner.And("I can login with my new credentials after veryfing my email", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
             }
             this.ScenarioCleanup();
         }
@@ -168,18 +178,15 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Player Retreive Username")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("mobile")]
-        [NUnit.Framework.CategoryAttribute("ignore")]
         public virtual void PlayerRetreiveUsername()
         {
             string[] tagsOfScenario = new string[] {
                     "smoke",
-                    "mobile",
-                    "ignore"};
+                    "mobile"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player Retreive Username", null, new string[] {
                         "smoke",
-                        "mobile",
-                        "ignore"});
-#line 20
+                        "mobile"});
+#line 25
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -199,6 +206,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 26
+ testRunner.Given("I have a launched PlayerMax mobile app", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 27
+ testRunner.When("I navigate to PlayerMax sign in page and click on Forgot? link located in the use" +
+                        "rname field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 28
+ testRunner.And("I enter my email, player ID, Last name and DOB and press retreive", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 29
+ testRunner.Then("I should see my username on the screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
             }
             this.ScenarioCleanup();
         }
@@ -218,7 +238,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "smoke",
                         "mobile",
                         "ignore"});
-#line 24
+#line 33
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -246,18 +266,15 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Player Forgot Password")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("mobile")]
-        [NUnit.Framework.CategoryAttribute("ignore")]
         public virtual void PlayerForgotPassword()
         {
             string[] tagsOfScenario = new string[] {
                     "smoke",
-                    "mobile",
-                    "ignore"};
+                    "mobile"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player Forgot Password", null, new string[] {
                         "smoke",
-                        "mobile",
-                        "ignore"});
-#line 28
+                        "mobile"});
+#line 37
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -277,21 +294,21 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 29
+#line 38
  testRunner.Given("I have launched PlayerMax mobile app", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 30
+#line 39
  testRunner.When("I navigate to PlayerMax sign in page and click on Forgot? link located in the pas" +
                         "sword field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 31
+#line 40
  testRunner.And("I enter my email, player ID, Last name and DOB and press Send", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 32
+#line 41
  testRunner.And("on the next page I enter the code from email, new password and new password confi" +
                         "rmation and press submit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 33
+#line 42
  testRunner.Then("A toast that says \"Password reset successfully\" should be displayed and I should " +
                         "be logged in automatically", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -303,15 +320,18 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("Player Reset Password After Admin Account Reset")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("mobile")]
+        [NUnit.Framework.CategoryAttribute("ignore")]
         public virtual void PlayerResetPasswordAfterAdminAccountReset()
         {
             string[] tagsOfScenario = new string[] {
                     "smoke",
-                    "mobile"};
+                    "mobile",
+                    "ignore"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player Reset Password After Admin Account Reset", null, new string[] {
                         "smoke",
-                        "mobile"});
-#line 37
+                        "mobile",
+                        "ignore"});
+#line 46
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
