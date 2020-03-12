@@ -10,6 +10,8 @@ using OpenQA.Selenium;
 using System;
 using System.Reflection;
 using TechTalk.SpecFlow;
+using System.Linq;
+using System.Configuration;
 
 namespace ATI.PlayerMax.Automation
 {
@@ -17,7 +19,6 @@ namespace ATI.PlayerMax.Automation
     class Hooks
     {
         private IWebDriver driver;
-        private IWebDriver mobileDriver;
         private readonly IObjectContainer container;
 
         //Variables for Extend report
@@ -26,9 +27,8 @@ namespace ATI.PlayerMax.Automation
         [ThreadStatic]
         private static ExtentTest featureName;
         [ThreadStatic]
-        private static ExtentTest scenario;
-        private static ExtentTest _test;
-        private static  FeatureContext _featureContext;
+        private  ExtentTest scenario;
+        private static FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;  
 
         public Hooks(IObjectContainer container,  ScenarioContext scenarioContext)
@@ -43,15 +43,21 @@ namespace ATI.PlayerMax.Automation
             //initialize the HtmlReporter
 
             //ExtentV3HtmlReporter htmlReporter = new ExtentV3HtmlReporter(@"C:\Users\rali\Desktop\AutomationReport\ExtentReport.html");
-            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(@"C:\Users\rali\Desktop\AutomationReport\ExtentReport.html");
+            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(@"C:\Users\rali\Desktop\Automation\AutomationReport\Single Run Repory\ExtentReport.html");
 
             //attach only HtmlReporte
             extent = new AventStack.ExtentReports.ExtentReports();
             extent.AttachReporter(htmlReporter);
-            extent.AddSystemInfo("MAM URL", "https://playermax-sit.aristocrat.systems");
-            extent.AddSystemInfo("Browser", "Chrome");
+            extent.AddSystemInfo("MAM_BROWSER", ConfigurationManager.AppSettings["MAM_BROWSER"]);
+            extent.AddSystemInfo("MAM_MODE", ConfigurationManager.AppSettings["MAM_MODE"]);
+            extent.AddSystemInfo("MOBILE_DEVICE", ConfigurationManager.AppSettings["MOBILE_DEVICE"]);
+            extent.AddSystemInfo("MOBILE_MODE", ConfigurationManager.AppSettings["MOBILE_MODE"]);
+            extent.AddSystemInfo("MAM_URL", ConfigurationManager.AppSettings["MAM_URL"]);
+            extent.AddSystemInfo("ANDROID_APK", ConfigurationManager.AppSettings["ANDROID_APK"]);
+            extent.AddSystemInfo("IOS_IPA", ConfigurationManager.AppSettings["IOS_IPA"]);
+            extent.AddSystemInfo("Build", "3.1.0.1000");            
             htmlReporter.Config.DocumentTitle = "PlayerMax Automation";
-            htmlReporter.Config.ReportName = "PlayerMax MAM Post-Deployment Automated Tests " + DateTime.Now.ToString();
+            htmlReporter.Config.ReportName = "PlayerMax Post-Deployment Automated Tests " + DateTime.Now.ToString();
             htmlReporter.Config.Theme = Theme.Dark;
 
             // htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
@@ -81,17 +87,27 @@ namespace ATI.PlayerMax.Automation
 
         [BeforeScenario]
         public void SetThingsUp()
-        {            
-            //Here, initilize the driver from the factory for web and mobile and create the reporter..etc
-            WebDriverFactory webDriverFactory = new WebDriverFactory();
-            driver = webDriverFactory.Get();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            
-            // MobileDriverFactory mobileDriverFactory = new MobileDriverFactory();
-            // mobileDriver = mobileDriverFactory.Get();
-            // driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+        {        
+            string[]  tagsArray = _scenarioContext.ScenarioInfo.Tags;
+            var isMobile = tagsArray.Contains("mobile");
 
-            container.RegisterInstanceAs<IWebDriver>(driver);
+            if (isMobile)
+            {
+                MobileDriverFactory mobileDriverFactory = new MobileDriverFactory();
+                driver = mobileDriverFactory.Get();
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                container.RegisterInstanceAs<IWebDriver>(driver);
+            }
+
+            else
+            {
+                //Here, initilize the driver from the factory for web and mobile and create the reporter..etc
+                WebDriverFactory webDriverFactory = new WebDriverFactory();
+                driver = webDriverFactory.Get();
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                container.RegisterInstanceAs<IWebDriver>(driver);
+
+            }
 
             //Create scenario name dynamically for extend reports
             // scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
