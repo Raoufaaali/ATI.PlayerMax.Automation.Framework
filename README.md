@@ -17,7 +17,7 @@ Regardless of the mode, the following reports will be available:
 2. Historical report (if configured)
 
 ## TODO Features
-Integrate with TFS to sync test cases
-Generate living documentation using Pickles
+1. Integrate with TFS to sync test cases
+2. Generate living documentation using Pickles
 
 
