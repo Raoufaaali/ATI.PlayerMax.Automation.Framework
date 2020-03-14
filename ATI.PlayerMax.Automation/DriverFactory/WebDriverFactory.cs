@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using ATI.PlayerMax.Automation.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -19,8 +20,8 @@ namespace ATI.PlayerMax.Automation.DriverFactory
             //Set the default browser and mode for MAM to Chrome and local respectively then try to obtain the values from the config file
             string MamBrowser = "chrome";
             string MamMode = "local";
-            MamBrowser =  ConfigurationManager.AppSettings["MAM_BROWSER"].ToLower();
-            MamMode = ConfigurationManager.AppSettings["MAM_MODE"].ToLower();
+            MamBrowser =  Configs.MAM_BROWSER.ToLower();
+            MamMode = Configs.MAM_MODE.ToLower();
 
             //Next, create the driver based on the config file
 
@@ -30,18 +31,18 @@ namespace ATI.PlayerMax.Automation.DriverFactory
                 {
                     case "chrome":
                         {
-                            driver = new ChromeDriver(".");
+                            driver = new ChromeDriver();
                             break;
                         }
                     case "firefox":
                         {
-                            driver = new FirefoxDriver(".");
+                            driver = new FirefoxDriver();
                             break;
                         }
 
                     default:
                         {
-                            driver = new ChromeDriver(".");
+                            driver = new ChromeDriver();
                             break;
                         }
                 }
@@ -50,13 +51,13 @@ namespace ATI.PlayerMax.Automation.DriverFactory
 
             if (MamMode == "saucelabs")
             {
-                //string sauceUserName = "Raoufaaali";
-                //string sauceAccessKey = "e655c8c9-97df-44aa-9cce-c602adf26fa2";
-                string sauceRemoteServer = ConfigurationManager.AppSettings["SAUCELABS_REMOTESERVER"];
-                string sauceUserName = ConfigurationManager.AppSettings["SAUCELABS_USERNAME"];
-                string sauceAccessKey = ConfigurationManager.AppSettings["SAUCELABS_PASSWORDS"];
-                
-                switch (MamBrowser.ToLower())
+
+                string sauceRemoteServer = Configs.SAUCELABS_REMOTESERVER;
+                string sauceUserName = Configs.SAUCELABS_USERNAME;
+                string sauceAccessKey = Configs.SAUCELABS_ACCESSKEY;
+                Uri sauceUrl = new Uri(string.Format("http://{0}:{1}@ondemand.saucelabs.com:80/wd/hub", sauceUserName, sauceAccessKey));
+
+                switch (MamBrowser)
                 {
                     case "chrome":
                         {
@@ -74,10 +75,9 @@ namespace ATI.PlayerMax.Automation.DriverFactory
                             };
                             chromeOptions.AddAdditionalCapability("sauce:options", sauceOptions, true);
 
-                            driver = new RemoteWebDriver(new Uri("https://ondemand.saucelabs.com/wd/hub"),
+                            driver = new RemoteWebDriver(sauceUrl,
                    chromeOptions.ToCapabilities(), TimeSpan.FromSeconds(600));
                             break;
-
                         }
 
                     default:
@@ -93,9 +93,10 @@ namespace ATI.PlayerMax.Automation.DriverFactory
             //TODO Pefecto mode
             if (MamMode == "perfecto")
             {
-                //Return a driver that is pointed to Pefecto lab
+                //Return a driver that is pointing to Pefecto lab
             }
 
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             return driver;
         }
     }
