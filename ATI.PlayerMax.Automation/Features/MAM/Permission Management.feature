@@ -17,3 +17,20 @@ Scenario: Login to MAM as an Administrator
 	When I press Sign In
 	Then I should not be logged into MAM
 	And I should receive an error message saying "You don't have privileges to login"
+
+
+	@mam @smoke @ignore
+Scenario: MAM Read-Only Access
+	Given I have navigated to the appropriate MAM URL
+	And I have used my read-only username and password to login 
+	When I try to edit or add content
+	Then I shouldn not see the save button
+
+	@ignore
+Scenario: MAM Limited Access 
+	Given I have navigated to the appropriate MAM URL
+	And My user role is not allowed to view permission management screen 
+	And I have entered my username and password 
+	When I navigate to Configuration 
+	Then I shouldn not see Permission Management 
+

@@ -244,7 +244,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "smoke",
                         "mobile",
                         "ignore"});
-#line 33
+#line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -283,7 +283,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "smoke",
                         "mobile",
                         "ignore"});
-#line 37
+#line 35
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -303,21 +303,21 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 38
+#line 36
  testRunner.Given("I have launched PlayerMax mobile app", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 39
+#line 37
  testRunner.When("I navigate to PlayerMax sign in page and click on Forgot? link located in the pas" +
                         "sword field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 40
+#line 38
  testRunner.And("I enter my email, player ID, Last name and DOB and press Send", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 41
+#line 39
  testRunner.And("on the next page I enter the code from email, new password and new password confi" +
                         "rmation and press submit", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 42
+#line 40
  testRunner.Then("A toast that says \"Password reset successfully\" should be displayed and I should " +
                         "be logged in automatically", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -340,7 +340,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "smoke",
                         "mobile",
                         "ignore"});
-#line 46
+#line 44
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -360,6 +360,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 45
+ testRunner.Given("Test Skip", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 46
+ testRunner.When("Test Skip", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 47
+ testRunner.And("Test Skip", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
             }
             this.ScenarioCleanup();
         }

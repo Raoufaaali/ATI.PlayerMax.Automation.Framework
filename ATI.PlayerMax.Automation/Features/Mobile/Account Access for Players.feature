@@ -28,10 +28,8 @@ Scenario: Player Retreive Username
 	And I enter my email, player ID, Last name and DOB and press retreive
 	Then I should see my username on the screen
 
-
 @smoke @mobile @ignore
 Scenario: Player Change Password
-
 
 @smoke @mobile @ignore
 Scenario: Player Forgot Password
@@ -44,3 +42,6 @@ Scenario: Player Forgot Password
 	
 @smoke @mobile @ignore
 Scenario: Player Reset Password After Admin Account Reset  
+	Given Test Skip
+	When Test Skip
+	And Test Skip

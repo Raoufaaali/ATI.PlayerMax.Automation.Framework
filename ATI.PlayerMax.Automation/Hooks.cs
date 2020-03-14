@@ -12,6 +12,11 @@ using System.Reflection;
 using TechTalk.SpecFlow;
 using System.Linq;
 using System.Configuration;
+using TestContext = NUnit.Framework.TestContext;
+using Reportium.Client;
+using Reportium.Model;
+using Reportium.Test.Result;
+using ATI.PlayerMax.Automation.Utilities;
 
 namespace ATI.PlayerMax.Automation
 {
@@ -29,7 +34,10 @@ namespace ATI.PlayerMax.Automation
         [ThreadStatic]
         private  ExtentTest scenario;
         private static FeatureContext _featureContext;
-        private readonly ScenarioContext _scenarioContext;  
+        private readonly ScenarioContext _scenarioContext;
+
+        public static ReportiumClient reportiumClient;
+        Reportium.Test.TestContext testContext;
 
         public Hooks(IObjectContainer container,  ScenarioContext scenarioContext)
         {
@@ -80,23 +88,23 @@ namespace ATI.PlayerMax.Automation
         public static void BeforeFeature(FeatureContext featureContext)
         {
             _featureContext = featureContext;
-            //Create feature name
-            featureName = extent.CreateTest<Feature>(_featureContext.FeatureInfo.Title);
+            //Create feature name for reporting for local mode
+            featureName = extent.CreateTest<Feature>(_featureContext.FeatureInfo.Title);      
         }
-    
 
         [BeforeScenario]
         public void SetThingsUp()
-        {        
-            string[]  tagsArray = _scenarioContext.ScenarioInfo.Tags;
+        {
+            string[] tagsArray = _scenarioContext.ScenarioInfo.Tags;
             var isMobile = tagsArray.Contains("mobile");
+            testContext = new Reportium.Test.TestContext(tagsArray);
 
             if (isMobile)
             {
                 MobileDriverFactory mobileDriverFactory = new MobileDriverFactory();
                 driver = mobileDriverFactory.Get();
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
                 container.RegisterInstanceAs<IWebDriver>(driver);
+
             }
 
             else
@@ -104,61 +112,26 @@ namespace ATI.PlayerMax.Automation
                 //Here, initilize the driver from the factory for web and mobile and create the reporter..etc
                 WebDriverFactory webDriverFactory = new WebDriverFactory();
                 driver = webDriverFactory.Get();
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
                 container.RegisterInstanceAs<IWebDriver>(driver);
 
             }
 
-            //Create scenario name dynamically for extend reports
-            // scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
 
-            //Create feature name
-            //featureName = extent.CreateTest<Feature>(_featureContext.FeatureInfo.Title);
+                if (Configs.MAM_MODE.ToLower() == "perfecto" || Configs.MOBILE_MODE.ToLower() == "perfecto")
+                {
+                    reportiumClient = CreateReportingClient(driver);
+                    reportiumClient.TestStart(_scenarioContext.ScenarioInfo.Title, testContext);
+                }
 
             //Get scenario name
             scenario = featureName.CreateNode<Scenario>(_scenarioContext.ScenarioInfo.Title);
         }
 
-        //[AfterScenario]
-        public void CleanUp()
-        {
-            if (driver != null)
-            {
-                driver.Quit();
-            }
-
-            extent.CreateTest(TestContext.CurrentContext.Test.Name, TestContext.CurrentContext.Result.ToString());
-
-            if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
-            {
-
-                extent.CreateTest(TestContext.CurrentContext.Test.Name, TestContext.CurrentContext.Test.FullName).Fail("Failllll");
-            }
-
-            else if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed)
-            {
-                extent.CreateTest(TestContext.CurrentContext.Test.Name, TestContext.CurrentContext.Test.FullName).Pass("Passsssssss");
-            }
-            else if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Skipped)
-            {
-                extent.CreateTest(TestContext.CurrentContext.Test.Name, TestContext.CurrentContext.Test.FullName).Skip("Skippedddddd");
-            }
-
-            else if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Inconclusive)
-            {
-                extent.CreateTest(TestContext.CurrentContext.Test.Name, TestContext.CurrentContext.Test.FullName).Skip("Skippedddddd");
-            }
-
-
-        }
 
         [AfterScenario]
         public void CloseDriver()
-        {
-            if (driver != null)
-            {
-                driver.Quit();
-            }
+        {           
 
             string status = _scenarioContext.ScenarioExecutionStatus.ToString();
 
@@ -166,22 +139,43 @@ namespace ATI.PlayerMax.Automation
             {
                 scenario.Skip("Skipped");
             }
-        }               
+                                                  
+            //Perfeco reporting if perfeco is used
 
+            if (Configs.MAM_MODE.ToLower() == "perfecto" || Configs.MOBILE_MODE.ToLower() == "perfecto")
+            { 
+            
+                if (status == "OK" )
+                {
+                    reportiumClient.TestStop(TestResultFactory.CreateSuccess());
+                }
 
+                if (status == "TestError")
+                {
+                    reportiumClient.TestStop(TestResultFactory.CreateFailure(_scenarioContext.TestError.Message, _scenarioContext.TestError.InnerException));
+                }              
+            }
+
+            if (driver != null)
+            {
+                driver.Quit();
+            }
+
+        }        
+        
+   
         [AfterTestRun]
         public static void TearDownReport()
         { 
             extent.Flush();
         }
 
-
         [AfterStep]
         public void InsertReportingSteps()
         {
-
             var stepType = _scenarioContext.StepContext.StepInfo.StepDefinitionType.ToString();
             string status = _scenarioContext.ScenarioExecutionStatus.ToString();
+      
 
             if (status == "TestError")
             {
@@ -190,19 +184,18 @@ namespace ATI.PlayerMax.Automation
                 else if (stepType == "When")
                     scenario.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
                 else if (stepType == "Then")
-                    scenario.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
-
+                    scenario.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);                                 
             }
 
             if (status == "OK")
             {
                 if (stepType == "Given")
-                    scenario.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Pass("Passed");
+                    scenario.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Pass("Ok");
                 else if (stepType == "When")
-                    scenario.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Pass("Passed");
+                    scenario.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Pass("Ok");
                 else if (stepType == "Then")
-                    scenario.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Pass("Passed");
-
+                    scenario.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Pass("Ok");          
+                               
             }
 
              if (status == "StepDefinitionPending" || status == "UndefinedStep" || status == "Skipped")
@@ -217,8 +210,22 @@ namespace ATI.PlayerMax.Automation
             }            
 
         }
+
+        private static ReportiumClient CreateReportingClient(IWebDriver driver)
+        {
+                PerfectoExecutionContext perfectoExecutionContext = new PerfectoExecutionContext.PerfectoExecutionContextBuilder()
+               //.WithProject(new Project("Perfecto Sample Project", "v1.0")) //optional
+               //.WithContextTags(new[] { "Perfecto", "Sample", "C#" }) //optional
+               //.WithJob(new Job("Sample C# Job", 1)) //optional
+               .WithWebDriver(driver)
+               .Build();
+            return PerfectoClientFactory.CreatePerfectoReportiumClient(perfectoExecutionContext);
+
+        }
         
     }
+
+
 
 
 }

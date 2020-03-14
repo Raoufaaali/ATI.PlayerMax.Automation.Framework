@@ -30,10 +30,6 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
         [Given(@"I have entered my username and password")]
         public void GivenIHaveEnteredMyUsernameAndPassword()
         {
-
-           // _driver.Manage().Window.Maximize();
-      
-
             IWebElement usernameElement =
             _driver.FindElement(By.Id("txtUserame"));
             usernameElement.SendKeys("TrainingUser2");
@@ -41,16 +37,13 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
             IWebElement PasswordElement =
             _driver.FindElement(By.Id("txtPassword"));
             PasswordElement.SendKeys("Password1234567");
-            
         }
         
         [When(@"I press Sign In")]
         public void WhenIPressSignIn()
         {
-
             IWebElement SignInElement = _driver.FindElement(By.Id("btnSignIn"));
-            SignInElement.Click();
-            
+            SignInElement.Click();            
         }
         
         [Then(@"I should be logged in to MAM")]
