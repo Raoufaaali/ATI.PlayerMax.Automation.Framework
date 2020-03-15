@@ -51,7 +51,7 @@ namespace ATI.PlayerMax.Automation
             //initialize the HtmlReporter
 
             //ExtentV3HtmlReporter htmlReporter = new ExtentV3HtmlReporter(@"C:\Users\rali\Desktop\AutomationReport\ExtentReport.html");
-            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(@"C:\Users\rali\Desktop\Automation\AutomationReport\Single Run Repory\ExtentReport.html");
+            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(@"C:\Users\rali\Desktop\Automation\AutomationReport\Single Run Report\ExtentReport.html");
 
             //attach only HtmlReporte
             extent = new AventStack.ExtentReports.ExtentReports();
@@ -63,9 +63,9 @@ namespace ATI.PlayerMax.Automation
             extent.AddSystemInfo("MAM_URL", ConfigurationManager.AppSettings["MAM_URL"]);
             extent.AddSystemInfo("ANDROID_APK", ConfigurationManager.AppSettings["ANDROID_APK"]);
             extent.AddSystemInfo("IOS_IPA", ConfigurationManager.AppSettings["IOS_IPA"]);
-            extent.AddSystemInfo("Build", "3.1.0.1000");            
+            extent.AddSystemInfo("Build", "TODO");            
             htmlReporter.Config.DocumentTitle = "PlayerMax Automation";
-            htmlReporter.Config.ReportName = "PlayerMax Post-Deployment Automated Tests " + DateTime.Now.ToString();
+            htmlReporter.Config.ReportName = "PlayerMax Automated Tests " + DateTime.Now.ToString();
             htmlReporter.Config.Theme = Theme.Dark;
 
             // htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
@@ -95,6 +95,9 @@ namespace ATI.PlayerMax.Automation
         [BeforeScenario]
         public void SetThingsUp()
         {
+            //Get scenario name
+            scenario = featureName.CreateNode<Scenario>(_scenarioContext.ScenarioInfo.Title);
+
             string[] tagsArray = _scenarioContext.ScenarioInfo.Tags;
             var isMobile = tagsArray.Contains("mobile");
             testContext = new Reportium.Test.TestContext(tagsArray);
@@ -102,7 +105,19 @@ namespace ATI.PlayerMax.Automation
             if (isMobile)
             {
                 MobileDriverFactory mobileDriverFactory = new MobileDriverFactory();
-                driver = mobileDriverFactory.Get();
+
+                try {
+                    driver = mobileDriverFactory.Get();
+                }
+                catch (Exception e)
+                {
+                    scenario.Fail(e.Message);
+                    scenario.Info(e.Message);
+                    scenario.Log(Status.Error, "Logging an error");
+                    scenario.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+
+                }          
+                
                 container.RegisterInstanceAs<IWebDriver>(driver);
 
             }
@@ -124,8 +139,7 @@ namespace ATI.PlayerMax.Automation
                     reportiumClient.TestStart(_scenarioContext.ScenarioInfo.Title, testContext);
                 }
 
-            //Get scenario name
-            scenario = featureName.CreateNode<Scenario>(_scenarioContext.ScenarioInfo.Title);
+            
         }
 
 
@@ -139,10 +153,17 @@ namespace ATI.PlayerMax.Automation
             {
                 scenario.Skip("Skipped");
             }
-                                                  
+
+            if (status == "TestError")
+            {
+                scenario.Fail(_scenarioContext.TestError.Message);
+            }
+
+
+
             //Perfeco reporting if perfeco is used
 
-            if (Configs.MAM_MODE.ToLower() == "perfecto" || Configs.MOBILE_MODE.ToLower() == "perfecto")
+                if (Configs.MAM_MODE.ToLower() == "perfecto" || Configs.MOBILE_MODE.ToLower() == "perfecto")
             { 
             
                 if (status == "OK" )
