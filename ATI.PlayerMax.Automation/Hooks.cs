@@ -27,7 +27,7 @@ namespace ATI.PlayerMax.Automation
         private readonly IObjectContainer container;
 
         //Variables for Extend report
-        public static AventStack.ExtentReports.ExtentReports extent;
+        public static ExtentReports extent;
         private static ExtentKlovReporter klov;
         [ThreadStatic]
         private static ExtentTest featureName;
