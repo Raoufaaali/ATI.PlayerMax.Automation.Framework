@@ -1,0 +1,1 @@
+%USERPROFILE%\.nuget\packages\pickles.commandline\2.20.1\tools\pickles.exe --documentation-format=dhtml --feature-directory=..\Features --output-directory=C:\PlayerMaxAutmation\LivingDocs --system-under-test-name="PlayerMax Automated Tests"
