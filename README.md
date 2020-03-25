@@ -1,5 +1,6 @@
 # ATI.PlayerMax.Automation.Framework
 PoC Framework for PlayerMax automation. The framework can be configured to run in different modes. 
+This framework uses BDD (SpecFlow and Gherkin) and is implemented in C#  
 
 
 ## Running on Perfecto
@@ -16,7 +17,7 @@ Regardless of the mode, the following reports will be available:
 1. Single-Run report
 2. Historical report (if configured)
 
-## TODO Features
+## Other Features
 1. Integrate with TFS to sync test cases
 2. Generate living documentation using Pickles
 
