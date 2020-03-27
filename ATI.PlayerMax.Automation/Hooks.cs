@@ -48,40 +48,13 @@ namespace ATI.PlayerMax.Automation
         [BeforeTestRun]
         public static void InitializeReport()
         {
-            //initialize the HtmlReporter
+            //initialize the single run report
+            extent = new ExtentReports();
+            Util.SetupExtentReport(extent);
 
-            //ExtentV3HtmlReporter htmlReporter = new ExtentV3HtmlReporter(@"C:\Users\rali\Desktop\AutomationReport\ExtentReport.html");
-            ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(@"C:\Users\rali\Desktop\Automation\AutomationReport\Single Run Report\ExtentReport.html");
-
-            //attach only HtmlReporte
-            extent = new AventStack.ExtentReports.ExtentReports();
-            extent.AttachReporter(htmlReporter);
-            extent.AddSystemInfo("MAM_BROWSER", ConfigurationManager.AppSettings["MAM_BROWSER"]);
-            extent.AddSystemInfo("MAM_MODE", ConfigurationManager.AppSettings["MAM_MODE"]);
-            extent.AddSystemInfo("MOBILE_DEVICE", ConfigurationManager.AppSettings["MOBILE_DEVICE"]);
-            extent.AddSystemInfo("MOBILE_MODE", ConfigurationManager.AppSettings["MOBILE_MODE"]);
-            extent.AddSystemInfo("MAM_URL", ConfigurationManager.AppSettings["MAM_URL"]);
-            extent.AddSystemInfo("ANDROID_APK", ConfigurationManager.AppSettings["ANDROID_APK"]);
-            extent.AddSystemInfo("IOS_IPA", ConfigurationManager.AppSettings["IOS_IPA"]);
-            extent.AddSystemInfo("Build", "TODO");            
-            htmlReporter.Config.DocumentTitle = "PlayerMax Automation";
-            htmlReporter.Config.ReportName = "PlayerMax Automated Tests " + DateTime.Now.ToString();
-            htmlReporter.Config.Theme = Theme.Dark;
-
-            // htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
-
-            //TODO 
-            // Generate historical reporting:
-
-            /* klov = new ExtentKlovReporter();
-             klov.InitMongoDbConnection("localhost", 27017);
-             klov.ProjectName = "PlayerMax MAM Automation";
-             klov.ReportName = "PlayerMax MAM Post-Deployment Automated Tests " + DateTime.Now.ToString();
-             klov.InitMongoDbConnection("localhost", 27017);
-             klov.InitKlovServerConnection("http://localhost:90");
-             extent.AttachReporter(htmlReporter, klov);
-             */
-            extent.AttachReporter(htmlReporter);
+            //initilize the historical reports
+            klov = new ExtentKlovReporter();
+            Util.SetupHistoricalReport(extent,klov);            
         }
 
         [BeforeFeature]
