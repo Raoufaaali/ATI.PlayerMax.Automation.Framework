@@ -93,7 +93,16 @@ namespace ATI.PlayerMax.Automation.DriverFactory
             //TODO Pefecto mode
             if (MamMode == "perfecto")
             {
-                //Return a driver that is pointing to Pefecto lab
+                //Get Perfecto settings from the environmnet variables
+                string securityToken = Configs.PERFECTO_SECURITYTOKEN;
+                string perfectoHost = Configs.PERFECTO_HOST;
+
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.AddAdditionalCapability("securityToken", securityToken);
+                chromeOptions.AddAdditionalCapability("name", TestContext.CurrentContext.Test.Name);
+                chromeOptions.AddAdditionalCapability("browserName", "Chrome");
+                Uri url = new Uri(string.Format("https://{0}/nexperience/perfectomobile/wd/hub", perfectoHost));
+                driver = new RemoteWebDriver(url, chromeOptions);
             }
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);

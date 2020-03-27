@@ -115,11 +115,16 @@ namespace ATI.PlayerMax.Automation
                     scenario.Info(e.Message);
                     scenario.Log(Status.Error, "Logging an error");
                     scenario.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+                }
 
-                }          
-                
+
+                if (Configs.MOBILE_MODE.ToLower() == "perfecto")
+                {
+                    reportiumClient = CreateReportingClient(driver);
+                    reportiumClient.TestStart(_scenarioContext.ScenarioInfo.Title, testContext);
+                }
+
                 container.RegisterInstanceAs<IWebDriver>(driver);
-
             }
 
             else
@@ -130,16 +135,7 @@ namespace ATI.PlayerMax.Automation
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
                 container.RegisterInstanceAs<IWebDriver>(driver);
 
-            }
-
-
-                if (Configs.MAM_MODE.ToLower() == "perfecto" || Configs.MOBILE_MODE.ToLower() == "perfecto")
-                {
-                    reportiumClient = CreateReportingClient(driver);
-                    reportiumClient.TestStart(_scenarioContext.ScenarioInfo.Title, testContext);
-                }
-
-            
+            }            
         }
 
 
@@ -160,22 +156,26 @@ namespace ATI.PlayerMax.Automation
             }
 
 
-
             //Perfeco reporting if perfeco is used
-
-                if (Configs.MAM_MODE.ToLower() == "perfecto" || Configs.MOBILE_MODE.ToLower() == "perfecto")
-            { 
-            
-                if (status == "OK" )
+            string[] tagsArray = _scenarioContext.ScenarioInfo.Tags;
+            var isMobile = tagsArray.Contains("mobile");
+            if (isMobile)
+            {
+                if (Configs.MOBILE_MODE.ToLower() == "perfecto")
                 {
-                    reportiumClient.TestStop(TestResultFactory.CreateSuccess());
+                    if (status == "OK")
+                    {
+                        reportiumClient.TestStop(TestResultFactory.CreateSuccess());
+                    }
+
+                    if (status == "TestError")
+                    {
+                        reportiumClient.TestStop(TestResultFactory.CreateFailure(_scenarioContext.TestError.Message, _scenarioContext.TestError.InnerException));
+                    }
                 }
 
-                if (status == "TestError")
-                {
-                    reportiumClient.TestStop(TestResultFactory.CreateFailure(_scenarioContext.TestError.Message, _scenarioContext.TestError.InnerException));
-                }              
-            }
+            }      
+
 
             if (driver != null)
             {

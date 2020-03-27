@@ -1,17 +1,20 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace ATI.PlayerMax.Automation.Util
+namespace ATI.PlayerMax.Automation.Utilities
 {
-    public sealed class Util
+    public class Util
     {
 
-        private Util()
-        {
-        }
+        //private Util()
+        //{
+        //}
 
         public static string GetConfigs()
         {
@@ -32,7 +35,7 @@ namespace ATI.PlayerMax.Automation.Util
 
         public static void ConnectToDB()
         {
-
+            // TO DO
         }
 
 
