@@ -36,7 +36,7 @@ namespace ATI.PlayerMax.Automation.Utilities
             //Try to read the configs from the environmnet variable, if null, read from the App.config
             string configValue = "";
             configValue = Environment.GetEnvironmentVariable(configKey, EnvironmentVariableTarget.Machine);
-
+            //Perfeco reporting if perfeco is used
             if (configValue == null)
             {
                 configValue = ConfigurationManager.AppSettings[configKey];

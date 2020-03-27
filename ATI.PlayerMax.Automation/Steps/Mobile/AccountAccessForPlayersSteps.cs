@@ -19,19 +19,25 @@ namespace ATI.PlayerMax.Automation.Steps.Mobile
         [Given]
         public void Given_I_have_launched_PlayerMax_mobile_app()
         {
-            _driver.FindElement(By.XPath("/html/body/app-root/ion-app/ion-router-outlet/app-page-home-default/ion-content/ion-content/div/div/ion-button"));
+            // _driver.SwitchTo().Alert().Accept();
+            //driver.findElement(By.name("OK")).click();
+            //Util.Util.DismissAlertIfAny(_driver);
+            //_driver.FindElement(By.XPath("//*[contains(text(), 'Next')]")).Click();
+            //Util.Util.DismissAlertIfAny(_driver);
+            //_driver.FindElement(By.XPath("//*[contains(text(), 'Nexdddddd')]")).Click();
         }
-        
+
         [When]
         public void When_I_navigate_to_PlayerMax_sign_in_page_and_enter_my_valid_credentials_and_press_login()
         {          
             
-            _driver.FindElement(By.XPath("/html/body/app-root/ion-app/ion-router-outlet/app-page-home-default/ion-content/ion-content/div/div/ion-button")).Click();
+            //_driver.FindElement(By.XPath("/html/body/app-root/ion-app/ion-router-outlet/app-page-home-default/ion-content/ion-content/div/div/ion-button")).Click();
+
+            _driver.FindElement(By.XPath("//*[contains(text(), 'Next')]")).Click();
             //_driver.FindElement(By.XPath("//div[contains(text(),'Suncoast')]")).Click();
             _driver.FindElement(By.XPath("//*[contains(text(), 'Charles')]")).Click();
 
             // _driver.FindElement(By.XPath("//div[. = 'TextToFind']")).Click();
-
 
             //_driver.FindElement(By.XPath("/html/body/app-root/ion-app/ion-router-outlet/app-property-list/ion-content/div/div/div[2]/div[1]/ion-list/ion-item/ion-grid/ion-row[1]")).Click();
             //Login

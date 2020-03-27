@@ -6,25 +6,20 @@ using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Remote;
-using Reportium.Client;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Security.Policy;
-using System.Text;
 
 namespace ATI.PlayerMax.Automation.DriverFactory
 {
     class MobileDriverFactory
     {
 
-
-
         public IWebDriver Get()
         {
 
             IWebDriver driver = null;
-           
+            IOSDriver<IWebElement> iosdriver = null;
+
             //Set the default browser and mode for MAM to Chrome and local respectively then try to obtain the values from the config file
             string mobileDevice = "android";
             string mobileMode = "local";
@@ -41,6 +36,7 @@ namespace ATI.PlayerMax.Automation.DriverFactory
                 {
                     case "android":
                         {
+
                             AppiumOptions appiumOptions = new AppiumOptions();
                             appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, "Nexus_5");
                             // appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, "Google Pixel GoogleAPI Emulator");
@@ -96,7 +92,7 @@ namespace ATI.PlayerMax.Automation.DriverFactory
                             appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutoWebview, true);
                             appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, false);
                             appiumOptions.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
-                            appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AutoGrantPermissions, true);
+                            appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AutoGrantPermissions, true);                            
 
                             Uri url = new Uri(string.Format("https://{0}/nexperience/perfectomobile/wd/hub", perfectoHost));
                             driver = new AndroidDriver<IWebElement>(url, appiumOptions);
@@ -104,23 +100,52 @@ namespace ATI.PlayerMax.Automation.DriverFactory
                             break;                                                              
                         }
                     case "ios":
-                        {
-                            AppiumOptions appiumOptions = new AppiumOptions();
+                        {             
+                            
+                          // TO DO
 
-                            appiumOptions.AddAdditionalCapability("securityToken", securityToken);
-                            appiumOptions.AddAdditionalCapability("platformName", "iOS");
-                            appiumOptions.AddAdditionalCapability("name", TestContext.CurrentContext.Test.Name);
-                            appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, Configs.IOS_IPA);
-                            appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutoWebview, true);
-                            appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, false);
-                            appiumOptions.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
-                            appiumOptions.AddAdditionalCapability(IOSMobileCapabilityType.AutoAcceptAlerts, true);
+                            //AppiumOptions appiumOptions = new AppiumOptions();
 
-                            Uri url = new Uri(string.Format("https://{0}/nexperience/perfectomobile/wd/hub", perfectoHost));
-                            driver = new IOSDriver<IWebElement>(url, appiumOptions);
+                            //appiumOptions.AddAdditionalCapability("securityToken", securityToken);
+                            //appiumOptions.AddAdditionalCapability("platformName", "iOS");                            
+                            //appiumOptions.AddAdditionalCapability("name", TestContext.CurrentContext.Test.Name);
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.App, Configs.IOS_IPA);
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutomationName, "XCUITest");                            
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, true);
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
+                            //appiumOptions.AddAdditionalCapability(IOSMobileCapabilityType.AutoAcceptAlerts, true);
 
+                            //Uri url = new Uri(string.Format("https://{0}/nexperience/perfectomobile/wd/hub", perfectoHost));
+                            //driver = new IOSDriver<IWebElement>(url, appiumOptions);
+                        
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.AutoWebview, true);
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.Language, "en");
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.Locale, "en_US");
+                            //appiumOptions.AddAdditionalCapability(IOSMobileCapabilityType.AutoDismissAlerts, true);
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.Orientation, "PORTRAIT");
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.DeviceName, "94KX1ZH59");
+                            //appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AutoGrantPermissions, true);
+                            //appiumOptions.AddAdditionalCapability("autoGrantPermissions", true);
+                            //appiumOptions.AddAdditionalCapability(IOSMobileCapabilityType.WaitForAppScript, true);
+                            //appiumOptions.AddAdditionalCapability("autoAcceptAlerts", true);
+                            //appiumOptions.AddAdditionalCapability("waitForAppScript", true);
+
+                            //appiumOptions.AddAdditionalCapability(MobileCapabilityType.NewCommandTimeout, 30);
+                            //appiumOptions.AddAdditionalCapability(IOSMobileCapabilityType.WaitForAppScript, "$.delay(8000); $.acceptAlert();");
+                            //appiumOptions.AddAdditionalCapability(IOSMobileCapabilityType.AutoDismissAlerts, true);
+
+
+
+                            //driver = iosdriver;
+
+                            //List<string> AllContexts = new List<string>();
+                            //foreach (var context in (iosdriver.Contexts))
+                            //{
+                            //    AllContexts.Add(context);
+                            //}
+
+                            //Console.WriteLine("");
                             break;
-
                         }
 
                     default:
@@ -133,9 +158,7 @@ namespace ATI.PlayerMax.Automation.DriverFactory
 
 
             if (mobileMode == "saucelabs")
-            {             
-             
-
+            {     
                 string sauceRemoteServer = Configs.SAUCELABS_REMOTESERVER;
                 string sauceUserName = Configs.SAUCELABS_USERNAME;
                 string sauceAccessKey = Configs.SAUCELABS_ACCESSKEY;
@@ -160,10 +183,9 @@ namespace ATI.PlayerMax.Automation.DriverFactory
                             appiumOptions.AddAdditionalCapability(MobileCapabilityType.NoReset, false);
                             appiumOptions.AddAdditionalCapability(MobileCapabilityType.FullReset, true);
                             appiumOptions.AddAdditionalCapability(AndroidMobileCapabilityType.AutoGrantPermissions, true);
-                            appiumOptions.AddAdditionalCapability("name", TestContext.CurrentContext.Test.Name);
+                            appiumOptions.AddAdditionalCapability("name", TestContext.CurrentContext.Test.Name);         
 
-                            driver = new RemoteWebDriver(sauceUrl,
-                                appiumOptions.ToCapabilities(), TimeSpan.FromSeconds(600));
+                            driver = new RemoteWebDriver(sauceUrl, appiumOptions.ToCapabilities(), TimeSpan.FromSeconds(600));
                             break;
                         }
 
