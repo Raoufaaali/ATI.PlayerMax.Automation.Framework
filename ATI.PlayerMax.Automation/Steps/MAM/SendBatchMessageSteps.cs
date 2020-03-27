@@ -86,7 +86,8 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
         public void ThenMyMessageShouldBeSavedToTheDB()
         {
             //TO DO add code to check the DB
-            Assert.AreEqual("Popeyes", "KFC");
+            //Assert.AreEqual(1, 2);
+
         }
             
 

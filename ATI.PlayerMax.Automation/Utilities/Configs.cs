@@ -9,7 +9,7 @@ namespace ATI.PlayerMax.Automation.Utilities
 {
     sealed class Configs
     {
-        public static string MAM_BROWSER = ConfigurationManager.AppSettings["MAM_MODE"];
+        public static string MAM_BROWSER = ConfigurationManager.AppSettings["MAM_BROWSER"];
         public static string MAM_MODE = ConfigurationManager.AppSettings["MAM_MODE"];
 
         public static string MOBILE_DEVICE = ConfigurationManager.AppSettings["MOBILE_DEVICE"];
