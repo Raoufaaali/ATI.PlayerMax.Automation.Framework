@@ -42,9 +42,10 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
         [When(@"I enter and save a batch message with trigger NOW to all players")]
         public void WhenIEnterAndSaveABatchMessageWithTriggerNOWToAllPlayers()
         {
-
+            ;
             IWebElement configurationBtn = _driver.FindElement(By.Id("configurationBtn"));
             configurationBtn.Click();
+            Thread.Sleep(5000);
             IWebElement batchMessage = _driver.FindElement(By.Id("batchMessage"));
             batchMessage.Click();
             IWebElement BtnConfiguration = _driver.FindElement(By.Id("MainContent_btnAddNewMessage"));
@@ -79,6 +80,7 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
 
             IWebElement btnConfirmSave = _driver.FindElement(By.Id("MainContent_btnConfirmedSave"));
             //btnConfirmSave.Click();
+            Thread.Sleep(5000);
 
         }
         
@@ -86,8 +88,7 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
         public void ThenMyMessageShouldBeSavedToTheDB()
         {
             //TO DO add code to check the DB
-            //Assert.AreEqual(1, 2);
-
+            //Assert.Equals("Popeyes", "KFC");
         }
             
 
