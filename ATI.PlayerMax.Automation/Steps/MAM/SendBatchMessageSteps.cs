@@ -87,6 +87,7 @@ namespace ATI.PlayerMax.Automation.Steps.MAM
         {
             //TO DO add code to check the DB
             //Assert.AreEqual(1, 2);
+
         }
             
 
