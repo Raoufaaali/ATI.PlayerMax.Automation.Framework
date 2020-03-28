@@ -1,0 +1,1 @@
+%USERPROFILE%\.nuget\packages\specsync.azuredevops\2.1.11\tools\SpecSync4AzureDevOps.exe push --verbose --baseFolder ..\
