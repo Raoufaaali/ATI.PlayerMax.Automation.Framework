@@ -15,10 +15,14 @@ namespace ATI.PlayerMax.Automation.Utilities
         public static string MOBILE_DEVICE = ConfigurationManager.AppSettings["MOBILE_DEVICE"];
         public static string MOBILE_MODE = ConfigurationManager.AppSettings["MOBILE_MODE"];
 
+        public static string PERFECTO_SECURITYTOKEN = ConfigurationManager.AppSettings["PERFECTO_SECURITYTOKEN"];
+        public static string PERFECTO_HOST = ConfigurationManager.AppSettings["PERFECTO_HOST"]; 
+
+        /*
         public static string PERFECTO_SECURITYTOKEN = GetSensitiveConfig("PERFECTO_SECURITYTOKEN");
         public static string PERFECTO_HOST = GetSensitiveConfig("PERFECTO_HOST");
         public static string PERFECTO_DEVICELIST = ConfigurationManager.AppSettings["PERFECTO_DEVICELIST"];
-
+        */
         public static string MAM_URL = ConfigurationManager.AppSettings["MAM_URL"];
         public static string ANDROID_APK = ConfigurationManager.AppSettings["ANDROID_APK"];
         public static string IOS_IPA = ConfigurationManager.AppSettings["IOS_IPA"];
