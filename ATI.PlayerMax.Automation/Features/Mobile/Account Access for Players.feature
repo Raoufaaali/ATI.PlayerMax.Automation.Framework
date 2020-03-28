@@ -14,7 +14,6 @@ Scenario: Player Login to Existing Account
 	When I navigate to PlayerMax sign in page and enter my valid credentials and press login
 	Then I should be logged in and be able to access the messages tab
 	
-@tc:403748
 @smoke @mobile @ignore
 Scenario: Player Register a New Account
 	Given I have launched PlayerMax mobile app
