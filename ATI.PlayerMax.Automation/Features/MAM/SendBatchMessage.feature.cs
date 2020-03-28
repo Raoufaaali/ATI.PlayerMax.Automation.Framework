@@ -76,17 +76,20 @@ namespace ATI.PlayerMax.Automation.Features.MAM
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Send Batch Message Now to All Players")]
+        [NUnit.Framework.CategoryAttribute("tc:403746")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("mam")]
         public virtual void SendBatchMessageNowToAllPlayers()
         {
             string[] tagsOfScenario = new string[] {
+                    "tc:403746",
                     "smoke",
                     "mam"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Send Batch Message Now to All Players", null, new string[] {
+                        "tc:403746",
                         "smoke",
                         "mam"});
-#line 7
+#line 8
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -106,14 +109,14 @@ namespace ATI.PlayerMax.Automation.Features.MAM
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 9
  testRunner.Given("I have logged into PlayerMax Administrator website and navigated to Configuration" +
                         " > Batch  Messages", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 10
  testRunner.When("I enter and save a batch message with trigger NOW to all players", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 11
  testRunner.Then("My message should be saved to the DB", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

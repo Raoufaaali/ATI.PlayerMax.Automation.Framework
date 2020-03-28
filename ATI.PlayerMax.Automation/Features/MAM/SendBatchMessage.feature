@@ -1,8 +1,9 @@
-﻿Feature: SendBatchMessage
+Feature: SendBatchMessage
 	In order to communicate with PlayerMax patrons
 	As a PlayerMax administrator
 	I want to be able to send in-app messages (AKA Batch Messages)
 	
+@tc:403746
 	@smoke @mam
 	Scenario: Send Batch Message Now to All Players
 	Given I have logged into PlayerMax Administrator website and navigated to Configuration > Batch  Messages

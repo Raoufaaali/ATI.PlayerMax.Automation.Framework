@@ -78,17 +78,20 @@ namespace ATI.PlayerMax.Automation.Features.MAM
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Login to MAM as an Administrator")]
+        [NUnit.Framework.CategoryAttribute("tc:403742")]
         [NUnit.Framework.CategoryAttribute("mam")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         public virtual void LoginToMAMAsAnAdministrator()
         {
             string[] tagsOfScenario = new string[] {
+                    "tc:403742",
                     "mam",
                     "smoke"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login to MAM as an Administrator", null, new string[] {
+                        "tc:403742",
                         "mam",
                         "smoke"});
-#line 7
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -108,16 +111,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 9
  testRunner.Given("I have navigated to the appropriate MAM URL and I have admin credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 10
  testRunner.And("I have entered my username and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 10
+#line 11
  testRunner.When("I press Sign In", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 11
+#line 12
  testRunner.Then("I should be logged in to MAM", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -126,11 +129,14 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("MAM Attempt To Login with Invalid Credentials")]
+        [NUnit.Framework.CategoryAttribute("tc:403743")]
         public virtual void MAMAttemptToLoginWithInvalidCredentials()
         {
-            string[] tagsOfScenario = ((string[])(null));
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MAM Attempt To Login with Invalid Credentials", null, ((string[])(null)));
-#line 14
+            string[] tagsOfScenario = new string[] {
+                    "tc:403743"};
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MAM Attempt To Login with Invalid Credentials", null, new string[] {
+                        "tc:403743"});
+#line 16
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -150,19 +156,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 15
+#line 17
  testRunner.Given("I have navigated to the appropriate MAM URL and I have admin credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 16
+#line 18
  testRunner.And("I have entered wrong username and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 17
+#line 19
  testRunner.When("I press Sign In", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 18
+#line 20
  testRunner.Then("I should not be logged into MAM", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 19
+#line 21
  testRunner.And("I should receive an error message saying \"You don\'t have privileges to login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -171,20 +177,23 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("MAM Read-Only Access")]
+        [NUnit.Framework.CategoryAttribute("tc:403744")]
         [NUnit.Framework.CategoryAttribute("mam")]
         [NUnit.Framework.CategoryAttribute("smoke")]
         [NUnit.Framework.CategoryAttribute("ignore")]
         public virtual void MAMRead_OnlyAccess()
         {
             string[] tagsOfScenario = new string[] {
+                    "tc:403744",
                     "mam",
                     "smoke",
                     "ignore"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MAM Read-Only Access", null, new string[] {
+                        "tc:403744",
                         "mam",
                         "smoke",
                         "ignore"});
-#line 23
+#line 26
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -204,16 +213,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 24
+#line 27
  testRunner.Given("I have navigated to the appropriate MAM URL", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 25
+#line 28
  testRunner.And("I have used my read-only username and password to login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 26
+#line 29
  testRunner.When("I try to edit or add content", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 27
+#line 30
  testRunner.Then("I shouldn not see the save button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -221,15 +230,18 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("MAM Limited Access")]
+        [NUnit.Framework.DescriptionAttribute("Scenarios TFS Sync")]
+        [NUnit.Framework.CategoryAttribute("tc:403755")]
         [NUnit.Framework.CategoryAttribute("ignore")]
-        public virtual void MAMLimitedAccess()
+        public virtual void ScenariosTFSSync()
         {
             string[] tagsOfScenario = new string[] {
+                    "tc:403755",
                     "ignore"};
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("MAM Limited Access", null, new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Scenarios TFS Sync", null, new string[] {
+                        "tc:403755",
                         "ignore"});
-#line 30
+#line 36
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -249,20 +261,17 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 31
- testRunner.Given("I have navigated to the appropriate MAM URL", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 37
+ testRunner.Given("I added a new scenario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 32
- testRunner.And("My user role is not allowed to view permission management screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 38
+ testRunner.And("I am using PlayerMax automation framework", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 33
- testRunner.And("I have entered my username and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
+ testRunner.When("I queue a new build", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 34
- testRunner.When("I navigate to Configuration", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 35
- testRunner.Then("I shouldn not see Permission Management", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 40
+ testRunner.Then("the scenario should be added to TFS as a test case", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
