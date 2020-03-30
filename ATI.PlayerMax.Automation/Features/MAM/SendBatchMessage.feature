@@ -9,3 +9,4 @@ Feature: SendBatchMessage
 	Given I have logged into PlayerMax Administrator website and navigated to Configuration > Batch  Messages
 	When I enter and save a batch message with trigger NOW to all players
 	Then My message should be saved to the DB
+

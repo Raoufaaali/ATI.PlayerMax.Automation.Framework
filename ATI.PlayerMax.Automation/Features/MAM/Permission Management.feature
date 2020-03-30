@@ -40,6 +40,18 @@ Scenario: Scenarios TFS Sync
 	Then the scenario should be added to TFS as a test case 
 
 
+@ignore
+Scenario Outline: MAM Limited Access 
+Given I have navigated to the appropriate MAM URL
+And I have entered my username as <Username> and my password as <Password>
+When I navigate to page <Page> 
+Then I shouldn <Result>  
+
+Examples:
+| Username      | Password  | Page                  | Result                            |
+| admin         | Password1 | Permission Management | Can view, edit and delete         |
+| marketinguser | Password2 | Permission Management | cant view, cant edit, cant delete |
+| IT_only       | Password3 | Dining                | Can view, cant edit, cant delete  |	
 
 
 
