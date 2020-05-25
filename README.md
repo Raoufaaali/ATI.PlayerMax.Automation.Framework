@@ -1,6 +1,5 @@
 # ATI.PlayerMax.Automation.Framework
-PoC Framework for PlayerMax automation. The framework can be configured to run in different modes. 
-This framework uses BDD (SpecFlow and Gherkin) and is implemented in C#  
+This automation framework is implemented in C#, it uses NUnit with Cucumber BDD (SpecFlow and Gherkin). This framework can be configured to run test on Mobile and/or Browser. It can also run tests on prem or on Perfecto cloud or SauceLabs cloud
 
 
 ## Running on Perfecto
