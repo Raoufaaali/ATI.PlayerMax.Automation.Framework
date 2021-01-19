@@ -1,5 +1,5 @@
 # ATI.PlayerMax.Automation.Framework
-This automation framework is implemented in C#, it uses NUnit with Cucumber BDD (SpecFlow and Gherkin). This framework can be configured to run test on Mobile and/or Browser. It can also run tests on prem or on Perfecto cloud or SauceLabs cloud
+This automation framework is implemented in Selenium C#, it uses NUnit with Cucumber BDD (SpecFlow and Gherkin). This framework can be configured to run test on Mobile and/or Browser. It can also run tests on prem or on Perfecto cloud or SauceLabs cloud
 
 
 ## Running on Perfecto
